@@ -2,7 +2,7 @@ import React from 'react';
 
 import useAuth from '@/hooks/queries/useAuth';
 import MainDrawerNavigator from '../drawer/MainDrawerNavigator';
-import AuthStackNavigator from '../AuthStackNavigator';
+import AuthStackNavigator from '../stack/AuthStackNavigator';
 
 export default function RootNavigator() {
   const {isLogin} = useAuth();

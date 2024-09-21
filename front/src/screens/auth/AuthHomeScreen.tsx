@@ -1,7 +1,7 @@
 import {Dimensions, Image, SafeAreaView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
-import {AuthStackParamList} from '@/navigations/AuthStackNavigator';
+import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
 import CustomButton from '@/components/CustomButton';
 import {authNavigations} from '@/constants';
 

@@ -1,13 +1,5 @@
-import {
-  Alert,
-  PermissionsAndroid,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
+import React, {useRef} from 'react';
 import useAuth from '@/hooks/queries/useAuth';
 import MapView, {LatLng, PROVIDER_GOOGLE} from 'react-native-maps';
 import {colors} from '@/constants';
@@ -17,32 +9,19 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
-import Geolocation from 'react-native-geolocation-service';
+import useUserLocation from '@/hooks/useUserLocation';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
   DrawerNavigationProp<MainDrawerParamList>
 >;
 
-const requestLocationPermission = async () => {
-  if (Platform.OS === 'android') {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
-    return granted === PermissionsAndroid.RESULTS.GRANTED;
-  }
-  return true;
-};
-
 export default function MapHomeScreen({}) {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<Navigation>();
-  const [userLocation, setUserLocation] = useState<LatLng>({
-    latitude: 37.5665,
-    longitude: 126.978,
-  });
   const mapRef = useRef<MapView | null>(null);
 
+  const {userLocation} = useUserLocation();
   const {logoutMutation} = useAuth();
 
   const handlePressUserLocation = () => {
@@ -53,37 +32,6 @@ export default function MapHomeScreen({}) {
       longitudeDelta: 0.0922,
     });
   };
-
-  useEffect(() => {
-    const getLocation = async () => {
-      const hasPermission = await requestLocationPermission();
-      if (!hasPermission) {
-        console.log('Location permission denied');
-        return;
-      }
-
-      const watchId = Geolocation.watchPosition(
-        position => {
-          const {latitude, longitude} = position.coords;
-          setUserLocation({latitude, longitude});
-        },
-        error => {
-          console.error('Location Error:', error);
-          Alert.alert('Error', 'Failed to get location');
-        },
-        {
-          enableHighAccuracy: true,
-          distanceFilter: 1,
-        },
-      );
-      return () => {
-        Geolocation.clearWatch(watchId);
-      };
-    };
-
-    getLocation();
-  }, []);
-  console.log('userLocation', userLocation);
 
   return (
     <>

@@ -28,8 +28,7 @@ export default function AuthStackNavigator() {
           fontSize: 15,
         },
         headerTintColor: 'black',
-      }}
-      children={null}>
+      }}>
       <Stack.Screen
         name={authNavigations.AUTH_HOME}
         component={AuthHomeScreen}

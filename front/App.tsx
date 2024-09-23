@@ -7,7 +7,7 @@ import queryClient from './src/api/queryClient';
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <NavigationContainer children={null}>
+      <NavigationContainer>
         <RootNavigator />
       </NavigationContainer>
     </QueryClientProvider>

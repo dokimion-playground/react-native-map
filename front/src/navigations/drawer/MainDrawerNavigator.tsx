@@ -16,9 +16,7 @@ const Drawer = createDrawerNavigator<MainDrawerParamList>();
 
 export default function MainDrawerNavigator() {
   return (
-    <Drawer.Navigator
-      screenOptions={{drawerType: 'front', headerShown: false}}
-      children={null}>
+    <Drawer.Navigator screenOptions={{drawerType: 'front', headerShown: false}}>
       <Drawer.Screen
         name={mainNavigations.HOME}
         component={MapStackNavigator}

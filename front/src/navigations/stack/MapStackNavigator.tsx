@@ -24,8 +24,7 @@ export default function MapStackNavigator() {
           fontSize: 15,
         },
         headerTintColor: 'black',
-      }}
-      children={null}>
+      }}>
       <Stack.Screen
         name={mapNavigations.MAP_HOME}
         component={MapHomeScreen}

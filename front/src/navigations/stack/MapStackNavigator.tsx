@@ -2,11 +2,13 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {mapNavigations} from '@/constants';
 import MapHomeScreen from '@/screens/map/MapHomeScreen';
+import {LatLng} from 'react-native-maps';
 
 const Stack = createStackNavigator<MapStackParamList>();
 
 export type MapStackParamList = {
   [mapNavigations.MAP_HOME]: undefined;
+  [mapNavigations.ADD_POST]: {location: LatLng};
 };
 
 export default function MapStackNavigator() {
@@ -31,6 +33,13 @@ export default function MapStackNavigator() {
         options={{
           headerTitle: ' ',
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={mapNavigations.ADD_POST}
+        component={MapHomeScreen}
+        options={{
+          headerTitle: '장소 추가',
         }}
       />
     </Stack.Navigator>

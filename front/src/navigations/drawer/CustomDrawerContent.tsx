@@ -1,4 +1,11 @@
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import {
   DrawerContentComponentProps,
@@ -11,8 +18,12 @@ import useAuth from '@/hooks/queries/useAuth';
 export default function CustomDrawerContent(
   props: DrawerContentComponentProps,
 ) {
-  const {getProfileQuery} = useAuth();
+  const {getProfileQuery, logoutMutation} = useAuth();
   const {email, nickName, imageUri, kakaoImageUri} = getProfileQuery.data || {};
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
 
   return (
     <SafeAreaView>
@@ -39,8 +50,12 @@ export default function CustomDrawerContent(
           <Text style={styles.nameText}>{nickName ?? email}</Text>
         </View>
       </DrawerContentScrollView>
-
       <DrawerItemList {...props} />
+      <Pressable
+        onPress={handleLogout}
+        style={{alignItems: 'flex-end', padding: 10}}>
+        <Text>로그아웃</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }

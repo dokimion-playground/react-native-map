@@ -12,9 +12,10 @@ const HeaderButton = ({
   labelText,
   icon,
   hasError = false,
+  ...props
 }: HeaderButtonProps) => {
   return (
-    <Pressable disabled={hasError} style={styles.container}>
+    <Pressable disabled={hasError} style={styles.container} {...props}>
       {!labelText && icon}
       {labelText && !icon && (
         <Text style={[styles.text, hasError && styles.textError]}>

@@ -1,5 +1,5 @@
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {colors, mapNavigations} from '@/constants';
@@ -10,6 +10,10 @@ import useForm from '@/hooks/useForm';
 import {TextInput} from 'react-native-gesture-handler';
 import {validateAddPost} from '@/utils';
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
+import {useMutateCreatePost} from '@/hooks/queries/useMutateCreatePost';
+import useGetAddress from '@/hooks/useGetAddress';
+import MarkerSelector from '@/components/MarkerSelector';
+import ScoreInput from '@/components/ScoreInput';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -18,8 +22,10 @@ type AddPostScreenProps = StackScreenProps<
 
 export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const {location} = route.params;
-
+  const [score, setScore] = useState(5);
   const descriptionRef = useRef<TextInput | null>(null);
+  const createPost = useMutateCreatePost();
+  const address = useGetAddress(location);
   const addPost = useForm({
     initialValues: {
       title: '',
@@ -28,7 +34,27 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
     validate: validateAddPost,
   });
 
-  const handleSubmit = () => {};
+  const handleChangeScore = (selectedScore: number) => {
+    setScore(selectedScore);
+  };
+
+  const handleSubmit = () => {
+    const body = {
+      date: new Date(),
+      title: addPost.values.title,
+      description: addPost.values.description,
+      color: colors.primary,
+      score,
+      imageUris: [],
+      address,
+    };
+    createPost.mutate(
+      {...location, ...body},
+      {
+        onSuccess: () => navigation.goBack(),
+      },
+    );
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -41,7 +67,7 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
       <ScrollView style={styles.contentContainer}>
         <View style={styles.inputContainer}>
           <InputField
-            value=""
+            value={address}
             disabled
             icon={<Octicons name="location" size={16} color={colors.grey} />}
           />
@@ -64,6 +90,11 @@ export default function AddPostScreen({route, navigation}: AddPostScreenProps) {
             returnKeyType="next"
             {...addPost.getTextInputProps('description')}
           />
+          <MarkerSelector
+            markerScore={score}
+            onPressMarker={handleChangeScore}
+          />
+          <ScoreInput score={score} onChangeScore={handleChangeScore} />
         </View>
       </ScrollView>
     </SafeAreaView>

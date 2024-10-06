@@ -13,7 +13,6 @@ interface Marker {
   id: number;
   latitude: number;
   longitude: number;
-  color: MarkerColor;
   score: number;
 }
 

@@ -1,12 +1,12 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useRef} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import InputField from '../../components/InputField';
-import {validateSignup} from '../../utils';
-import useForm from '../../hooks/useForm';
+import InputField from '@/components/InputField';
+import {validateSignup} from '@/utils';
+import useForm from '@/hooks/useForm';
 import {TextInput} from 'react-native-gesture-handler';
-import CustomButton from '../../components/CustomButton';
-import useAuth from '../../hooks/queries/useAuth';
+import CustomButton from '@/components/CustomButton';
+import useAuth from '@/hooks/queries/useAuth';
 
 export default function SignupScreen() {
   const passwordRef = useRef<TextInput | null>(null);

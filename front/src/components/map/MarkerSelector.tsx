@@ -1,8 +1,8 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import CustomMarker from './CustomMarker';
 import {ScrollView} from 'react-native-gesture-handler';
 import {colors} from '@/constants';
+import CustomMarker from '../common/CustomMarker';
 
 interface MarkerSelectorProps {
   markerScore: number;

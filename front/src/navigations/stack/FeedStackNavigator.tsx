@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from '@/screens/auth/LoginScreen';
 import {feedNavigations} from '@/constants';
 import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
-import FeedHomeHeaderLeft from '@/components/FeedHomeHeaderLeft';
+import FeedHomeHeaderLeft from '@/components/feed/FeedHomeHeaderLeft';
 
 const Stack = createStackNavigator<FeedStackParamList>();
 

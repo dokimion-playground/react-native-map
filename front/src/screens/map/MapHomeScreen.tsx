@@ -21,7 +21,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {mapStyle} from '@/style/mapStyle';
 import {alerts} from '@/constants/message';
 import {useGetMarkers} from '@/hooks/queries/useGetMarkers';
-import CustomMarker from '@/components/CustomMarker';
+import CustomMarker from '@/components/common/CustomMarker';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,

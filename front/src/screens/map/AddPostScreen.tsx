@@ -3,19 +3,19 @@ import React, {useEffect, useRef, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {colors, mapNavigations} from '@/constants';
-import InputField from '@/components/InputField';
 import Octicons from 'react-native-vector-icons/Octicons';
-import CustomButton from '@/components/CustomButton';
 import useForm from '@/hooks/useForm';
 import {TextInput} from 'react-native-gesture-handler';
 import {getDateWithSeparator, validateAddPost} from '@/utils';
-import AddPostHeaderRight from '@/components/AddPostHeaderRight';
+import AddPostHeaderRight from '@/components/post/AddPostHeaderRight';
 import {useMutateCreatePost} from '@/hooks/queries/useMutateCreatePost';
 import useGetAddress from '@/hooks/useGetAddress';
-import MarkerSelector from '@/components/MarkerSelector';
-import ScoreInput from '@/components/ScoreInput';
-import DatePickerOption from '@/components/DatePickerOption';
+import MarkerSelector from '@/components/map/MarkerSelector';
+import ScoreInput from '@/components/post/ScoreInput';
+import DatePickerOption from '@/components/post/DatePickerOption';
 import useModal from '@/hooks/useModal';
+import InputField from '@/components/common/InputField';
+import CustomButton from '@/components/common/CustomButton';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
